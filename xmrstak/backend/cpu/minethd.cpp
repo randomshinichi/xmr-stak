@@ -394,7 +394,7 @@ void minethd::work_main()
 	ctx = minethd_alloc_ctx();
 
 	piHashVal = (uint64_t*)(result.bResult + 24);
-	piNonce = (uint32_t*)(oWork.bWorkBlob + 39);
+	piNonce = (uint32_t*)(oWork.bWorkBlob + 0);
 	globalStates::inst().inst().iConsumeCnt++;
 	result.iThreadId = iThreadNo;
 
@@ -549,7 +549,7 @@ void minethd::prep_multiway_work(uint8_t *bWorkBlob, uint32_t **piNonce)
 	{
 		memcpy(bWorkBlob + oWork.iWorkSize * i, oWork.bWorkBlob, oWork.iWorkSize);
 		if (i > 0)
-			piNonce[i] = (uint32_t*)(bWorkBlob + oWork.iWorkSize * i + 39);
+			piNonce[i] = (uint32_t*)(bWorkBlob + oWork.iWorkSize * i + 0);
 	}
 }
 
@@ -577,7 +577,7 @@ void minethd::multiway_work_main(cn_hash_fun_multi hash_fun_multi)
 	{
 		ctx[i] = minethd_alloc_ctx();
 		piHashVal[i] = (uint64_t*)(bHashOut + 32 * i + 24);
-		piNonce[i] = (i == 0) ? (uint32_t*)(bWorkBlob + 39) : nullptr;
+		piNonce[i] = (i == 0) ? (uint32_t*)(bWorkBlob + 0) : nullptr;
 	}
 
 	if(!oWork.bStall)
