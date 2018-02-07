@@ -105,10 +105,10 @@ __global__ void cryptonight_extra_gpu_prepare( int threads, uint32_t * __restric
 	uint32_t input[21];
 
 	memcpy( input, d_input, len );
-	//*((uint32_t *)(((char *)input) + 39)) = startNonce + thread;
+	//*((uint32_t *)(((char *)input) + 0)) = startNonce + thread;
 	uint32_t nonce = startNonce + thread;
 	for ( int i = 0; i < sizeof (uint32_t ); ++i )
-		( ( (char *) input ) + 39 )[i] = ( (char*) ( &nonce ) )[i]; //take care of pointer alignment
+		( ( (char *) input ) + 0 )[i] = ( (char*) ( &nonce ) )[i]; //take care of pointer alignment
 
 	cn_keccak( (uint8_t *) input, len, (uint8_t *) ctx_state );
 	cryptonight_aes_set_key( ctx_key1, ctx_state );
