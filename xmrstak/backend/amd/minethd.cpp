@@ -216,7 +216,7 @@ void minethd::work_main()
 		XMRSetJob(pGpuCtx, oWork.bWorkBlob, oWork.iWorkSize, target);
 
 		if(oWork.bNiceHash)
-			pGpuCtx->Nonce = *(uint32_t*)(oWork.bWorkBlob + 39);
+			pGpuCtx->Nonce = *(uint32_t*)(oWork.bWorkBlob + 0);
 
 		while(globalStates::inst().iGlobalJobNo.load(std::memory_order_relaxed) == iJobNo)
 		{
@@ -239,7 +239,7 @@ void minethd::work_main()
 				memcpy(bWorkBlob, oWork.bWorkBlob, oWork.iWorkSize);
 				memset(bResult, 0, sizeof(job_result::bResult));
 
-				*(uint32_t*)(bWorkBlob + 39) = results[i];
+				*(uint32_t*)(bWorkBlob + 0) = results[i];
 
 				hash_fun(bWorkBlob, oWork.iWorkSize, bResult, cpu_ctx);
 				if ( (*((uint64_t*)(bResult + 24))) < oWork.iTarget)
